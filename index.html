@@ -473,19 +473,19 @@
             color: var(--text-muted);
         }
 
-        @media (max-width: 576px) {
+        /* @media (max-width: 576px) {
             .card-container { padding: 12px 8px; }
-            /* .card-inner { padding: 36px 18px; } */
+            .card-inner { padding: 36px 18px; }
             .card-inner { padding: 32px 16px; }
-            /* .families-grid { grid-template-columns: 1fr; gap: 20px;} */
+            .families-grid { grid-template-columns: 1fr; gap: 20px;}
             .families-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
             .family-title { font-size: 0.8rem; letter-spacing: 1px; }
             .family-names p { font-size: 0.8rem; line-height: 1.4; }
-            /* .couple-names h1 { font-size: 2.4rem; } */
+            .couple-names h1 { font-size: 2.4rem; }
             .couple-names h1 { font-size: 2.1rem; word-break: keep-all;}
-            /* .event-date { font-size: 1.4rem; } */
+            .event-date { font-size: 1.4rem; }
             .event-date { font-size: 1.25rem; }
-            /* .event-timeline { gap: 24px; } */
+            .event-timeline { gap: 24px; }
             .event-timeline { gap: 20px; }
             .gate-container { height: 480px; }
 
@@ -495,12 +495,227 @@
                 font-size: 1.15rem;
             }
 
-            /* Touch-friendly full-width map button */
+            Touch-friendly full-width map button
             .map-btn {
                 width: 100%;
                 justify-content: center;
                 padding: 12px 16px;
                 font-size: 0.8rem;
+            }
+        } */
+        
+        @media (max-width: 576px) {
+            html,
+            body {
+                width: 100%;
+                min-width: 0;
+                overflow-x: hidden;
+            }
+
+            body {
+                min-height: 100dvh;
+                padding:
+                    env(safe-area-inset-top)
+                    env(safe-area-inset-right)
+                    env(safe-area-inset-bottom)
+                    env(safe-area-inset-left);
+            }
+
+            /* =========================
+            MAIN INVITATION
+            ========================= */
+
+            .card-container {
+                width: 100%;
+                max-width: 100%;
+                padding: 10px 8px;
+                margin: 0 auto;
+            }
+
+            .main-card {
+                width: 100%;
+                padding: 7px;
+            }
+
+            .card-inner {
+                width: 100%;
+                padding: clamp(24px, 7vw, 36px) clamp(14px, 5vw, 24px);
+            }
+
+            /* =========================
+            FAMILY INFORMATION
+            ========================= */
+
+            .families-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+                margin-bottom: 24px;
+            }
+
+            .family-title {
+                font-size: clamp(0.65rem, 2.8vw, 0.8rem);
+                letter-spacing: 0.5px;
+            }
+
+            .family-names p {
+                font-size: clamp(0.68rem, 2.8vw, 0.8rem);
+                line-height: 1.45;
+                word-break: break-word;
+            }
+
+            /* =========================
+            DECORATION
+            ========================= */
+
+            .sh-emblem {
+                font-size: clamp(2.4rem, 12vw, 3.2rem);
+                margin-bottom: 20px;
+            }
+
+            .divider {
+                margin: 20px 0;
+            }
+
+            .divider::before,
+            .divider::after {
+                width: clamp(25px, 10vw, 50px);
+            }
+
+            /* =========================
+            INVITATION TEXT
+            ========================= */
+
+            .invite-text {
+                font-size: clamp(0.95rem, 4vw, 1.25rem);
+                line-height: 1.6;
+                margin-bottom: 22px;
+            }
+
+            /* =========================
+            COUPLE NAMES
+            ========================= */
+
+            .couple-names {
+                margin-bottom: 26px;
+            }
+
+            .couple-names h1 {
+                font-size: clamp(1.7rem, 8vw, 2.4rem);
+                line-height: 1.15;
+                overflow-wrap: break-word;
+                word-break: normal;
+            }
+
+            .ampersand {
+                font-size: clamp(1.3rem, 6vw, 1.7rem);
+                margin: 4px 0;
+            }
+
+            /* =========================
+            EVENT INFORMATION
+            ========================= */
+
+            .event-info {
+                width: 100%;
+                padding: 18px 10px;
+                margin-bottom: 26px;
+            }
+
+            .event-date {
+                font-size: clamp(1rem, 4.5vw, 1.3rem);
+                line-height: 1.4;
+            }
+
+            .event-lunar {
+                font-size: clamp(0.7rem, 3vw, 0.85rem);
+                line-height: 1.5;
+            }
+
+            .event-timeline {
+                width: 100%;
+                gap: 10px;
+                justify-content: space-around;
+            }
+
+            .timeline-item {
+                min-width: 0;
+                flex: 1;
+            }
+
+            .timeline-item span:first-child {
+                font-size: clamp(0.6rem, 2.5vw, 0.75rem);
+                letter-spacing: 0.8px;
+            }
+
+            .timeline-item span:last-child {
+                font-size: clamp(0.95rem, 4.5vw, 1.2rem);
+            }
+
+            /* =========================
+            LOCATION
+            ========================= */
+
+            .location {
+                margin-bottom: 28px;
+            }
+
+            .loc-name {
+                font-size: clamp(1.15rem, 5.5vw, 1.45rem);
+            }
+
+            .loc-address {
+                width: 100%;
+                max-width: 100%;
+                font-size: clamp(0.7rem, 3.2vw, 0.88rem);
+                line-height: 1.55;
+                padding: 0 4px;
+            }
+
+            .map-btn {
+                width: 100%;
+                min-height: 44px;
+                justify-content: center;
+                padding: 11px 14px;
+                font-size: 0.75rem;
+            }
+
+            /* =========================
+            FOOTER
+            ========================= */
+
+            .footer {
+                padding-top: 20px;
+            }
+
+            .footer p {
+                font-size: clamp(0.9rem, 4vw, 1.15rem);
+                line-height: 1.5;
+            }
+
+            .rsvp {
+                font-size: clamp(0.65rem, 2.8vw, 0.8rem);
+                line-height: 1.5;
+            }
+
+            /* =========================
+            GATE / ENVELOPE
+            ========================= */
+
+            .gate-container {
+                width: min(88vw, 380px);
+                height: min(72dvh, 520px);
+                max-width: calc(100vw - 32px);
+                max-height: calc(100dvh - 32px);
+            }
+
+            .wax-seal {
+                width: clamp(70px, 20vw, 84px);
+                height: clamp(70px, 20vw, 84px);
+            }
+
+            .gate-preview h2 {
+                font-size: clamp(1.5rem, 7vw, 2.2rem);
+                padding: 0 20px;
             }
         }
     </style>
@@ -554,15 +769,15 @@
                     <div class="family">
                         <div class="family-title">Nhà Trai</div>
                         <div class="family-names">
-                            <p>Ông: <strong>Nguyễn Văn A</strong></p>
-                            <p>Bà: <strong>Trần Thị B</strong></p>
+                            <p>Ông: <strong>Văn Tuấn</strong></p>
+                            <p>Bà: <strong>Trần Bình</strong></p>
                         </div>
                     </div>
                     <div class="family">
                         <div class="family-title">Nhà Gái</div>
                         <div class="family-names">
-                            <p>Ông: <strong>Lê Văn C</strong></p>
-                            <p>Bà: <strong>Phạm Thị D</strong></p>
+                            <p>Ông: <strong>Tuệ Công</strong></p>
+                            <p>Bà: <strong>Phạm Dung</strong></p>
                         </div>
                     </div>
                 </section>
@@ -575,9 +790,9 @@
 
                 <!-- Bride & Groom -->
                 <section class="couple-names stagger-item">
-                    <h1 class="gold-text">Nguyễn Văn Minh</h1>
+                    <h1 class="gold-text">Văn Minh</h1>
                     <div class="ampersand gold-text">&</div>
-                    <h1 class="gold-text">Lê Tuệ Anh</h1>
+                    <h1 class="gold-text">Tuệ Anh</h1>
                 </section>
 
                 <!-- Schedule & Dates -->
