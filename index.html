@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp cưới - Văn Minh & Tuệ Anh</title>
+    
+    <!-- Modern Serif & Sans-Serif Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap">
+
+    <style>
+        :root {
+            /* Premium Luxury & Traditional Color Palette */
+            --bg-cream: #f4efea;
+            --card-bg: #fffdf9;
+            --red-primary: #8b1818;
+            --red-deep: #4a0d0d;
+            --text-dark: #231f20;
+            --text-muted: #695e57;
+
+            /* Dynamic Gold Foil Shimmer */
+            --gold-solid: #c5a059;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            
+            /* Modern Serif & Sans-Serif fonts */
+            --font-serif: 'Playfair Display', serif;
+            --font-heading: 'Cinzel', serif;
+            --font-sans: 'Montserrat', sans-serif;
+
+            /* Smooth Ease */
+            --smooth-ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            background-image: radial-gradient(rgba(197, 160, 89, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Floating Canvas for Petals */
+        #particleCanvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        /* Glassmorphism Audio Control */
+        .audio-btn {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 100;
+            background: rgba(255, 253, 249, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            color: var(--red-primary);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s var(--smooth-ease);
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.08);
+            background: var(--red-primary);
+            color: #fff;
+            border-color: var(--red-primary);
+        }
+
+        .gold-text {
+            background: var(--gold-gradient);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: goldShimer 4s ease infinite;
+        }
+
+        @keyframes goldShimer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /*  ======================================
+            SCENE 1: LUXURY GATE / ENVELOPE CONVER
+            ====================================== */
+        .gate-scene {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            perspective: 1000px;
+            transition: opacity 1s var(--smooth-ease), visibility 1s ease;
+        }
+
+        .gate-scene.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .gate-container {
+            position: relative;
+            width: 90vw;
+            max-width: 440px;
+            height: 580px;
+            background: var(--red-deep);
+            border-radius: 6px;
+            box-shadow: 0 25px 60px rgba(74, 14, 13, 0.35);
+            display: flex;
+            overflow: hidden;
+            border: 1px solid var(--gold-solid);
+        }
+
+        .gate-door {
+            position: absolute;
+            top: 0; width: 50%; height: 100%;
+            background: var(--red-primary);
+            transition: transform 1.2s var(--smooth-ease);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .door-left {
+            left: 0;
+            border-right: 1px solid rgba(197, 160, 89, 0.4);
+        }
+        .door-right {
+            right: 0;
+            border-left: 1px solid rgba(197, 160, 89, 0.4);
+        }
+
+        .gate-container.is-open .door-left { transform: translateX(-100%); }
+        .gate-container.is-open .door-right { transform: translateX(100%); }
+
+        /* Was Seal Button */
+        .wax-seal-wrapper {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 4;
+            cursor: pointer;
+            transition: transform 0.4s var(--smooth-ease);
+        }
+
+        .wax-seal-wrapper:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .wax-seal {
+            width: 84px; height: 84px;
+            background: radial-gradient(circle, #a82020 0%, #5e0d0d 100%);
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--gold-solid);
+            color: #f7e7c4;
+        }
+
+        .wax-seal .sh-icon {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            line-height: 1;
+        }
+
+        .wax-seal .seal-text {
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .gate-preview {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .gate-preview h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            color: var(--red-primary);
+        }
+
+        /*  =============================
+            SCENE 2: MAIN INVITATION CARD
+            ============================= */
+        .card-container {
+            position: relative;
+            width: 100%;
+            max-width: 620px;
+            padding: 20px 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(40px);
+            transition: all 1.2s var(--smooth-ease);
+            z-index: 10;
+            display: none;
+        }
+
+        .card-container.is-visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            display: block;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            border-radius: 4px;
+            padding: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(197, 160, 89, 0.25);
+        }
+
+        .card-inner {
+            border: 1px solid var(--gold-solid);
+            padding: 50px 36px;
+            position: relative;
+            background: linear-gradient(180deg, rgba(255, 253, 249, 0) 0%, rgba(247, 239, 234, 0.3) 100%);
+        }
+
+        /* Tranditional Corner Accents */
+        .corner {
+            position: absolute;
+            width: 24px; height: 24px;
+            border-color: var(--gold-solid);
+            border-style: solid;
+        }
+        .c-tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+        .c-tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+        .c-bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+        .c-br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+        /* Staggered Content Animation */
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s var(--smooth-ease), transform 0.8s var(--smooth-ease);
+        }
+        .is-visible .stagger-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sh-emblem {
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: 3.2rem;
+            margin-bottom: 24px;
+            line-height: 1;
+        }
+        
+        .families-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .family-title {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            color: var(--red-primary);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .family-names p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 28px 0;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            height: 1px;
+            width: 50px;
+            background: var(--gold-solid);
+            opacity: 0.5;
+        }
+        .divider span {
+            margin: 0 12px;
+            width: 6px; height: 6px;
+            background: var(--gold-solid);
+            transform: rotate(45deg);
+        }
+
+        .invite-text {
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .couple-names {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .couple-names h1 {
+            font-family: var(--font-serif);
+            font-size: 3.2rem;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+        .ampersand {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin: 8px 0;
+        }
+
+        .event-info {
+            text-align: center;
+            padding: 28px 16px;
+            background: rgba(197, 160, 89, 0.06);
+            border-radius: 4px;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            margin-bottom: 32px;
+        }
+
+        .event-date {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--red-primary);
+            margin-bottom: 6px;
+        }
+        .event-lunar {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .event-timeline {
+            display: flex;
+            justify-content: center;
+            gap: 36px;
+        }
+        .timeline-item span:first-child {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+        .timeline-item span:last-child {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--red-deep);
+        }
+
+        .location {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .loc-name {
+            font-family: var(--font-serif);
+            font-size: 1.45rem;
+            font-weight: 600;
+            color: var(--red-primary);
+            margin-bottom: 8px;
+        }
+        .loc-address {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 420px;
+            margin: 0 auto 16px auto;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: transparent;
+            border: 1px solid var(--gold-solid);
+            color: var(--red-primary);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.3s var(--smooth-ease);
+        }
+        .map-btn:hover {
+            background: var(--red-primary);
+            color: #fff;
+            border-color: var(--red-primary);
+        }
+
+        .footer {
+            text-align: center;
+            border-top: 1px solid rgba(197, 160, 89, 0.25);
+            padding-top: 24px;
+        }
+        .footer p {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            color: var(--red-deep);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .rsvp {
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 576px) {
+            .card-inner { padding: 36px 18px; }
+            .families-grid { grid-template-columns: 1fr; gap: 20px;}
+            .couple-names h1 { font-size: 2.4rem; }
+            .event-date { font-size: 1.4rem; }
+            .event-timeline { gap: 24px; }
+            .gate-container { height: 480px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Petals Canva -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Audio Controls -->
+    <button class="audio-btn" id="audioToggle" title="On/Off Music" aria-label="Toggle Audio">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+    </button>
+    <audio id="bgMusic" loop preload="none">
+        <source type="audio/mpeg" src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3">
+    </audio>
+
+    <!-- SCENE 1: Dual-Door Gate Sequence -->
+    <div class="gate-scene" id="scene1">
+        <div class="gate-container" id="gate">
+            <div class="gate-door door-left"></div>
+            <div class="gate-door door-right"></div>
+
+            <div class="wax-seal-wrapper" id="sealBtn">
+                <div class="wax-seal">
+                    <span class="sh-icon">囍</span>
+                    <span class="seal-text">Mở Thiệp</span>
+                </div>
+            </div>
+
+            <div class="gate-preview">
+                <h2 class="gold-text">Văn Minh & Tuệ Anh</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCENE 2: Premium Invitation Card -->
+    <div class="card-container" id="scene2">
+        <main class="main-card">
+            <div class="card-inner">
+                <!-- Frame Accents -->
+                <div class="corner c-tl"></div>
+                <div class="corner c-tr"></div>
+                <div class="corner c-bl"></div>
+                <div class="corner c-br"></div>
+
+                <div class="sh-emblem gold-text stagger-item">囍</div>
+
+                <!-- Family Information -->
+                <section class="families-grid stagger-item">
+                    <div class="family">
+                        <div class="family-title">Nhà Trai</div>
+                        <div class="family-names">
+                            <p>Ông: <strong>Nguyễn Văn A</strong></p>
+                            <p>Bà: <strong>Trần Thị B</strong></p>
+                        </div>
+                    </div>
+                    <div class="family">
+                        <div class="family-title">Nhà Gái</div>
+                        <div class="family-names">
+                            <p>Ông: <strong>Lê Văn C</strong></p>
+                            <p>Bà: <strong>Phạm Thị D</strong></p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="divider stagger-item"><span></span></div>
+
+                <div class="invite-text stagger-item">
+                    Trân trọng kính mời quý khách đến dự buổi tiệc chung vui cùng gia đình chúng tôi
+                </div>
+
+                <!-- Bride & Groom -->
+                <section class="couple-names stagger-item">
+                    <h1 class="gold-text">Nguyễn Văn Minh</h1>
+                    <div class="ampersand gold-text">&</div>
+                    <h1 class="gold-text">Lê Tuệ Anh</h1>
+                </section>
+
+                <!-- Schedule & Dates -->
+                <section class="event-info stagger-item">
+                    <div class="event-date">Chủ Nhật, 18 Tháng 10 Năm 2026</div>
+                    <div class="event-lunar">(Tức ngày 09 tháng 09 năm Bính Ngọ)</div>
+
+                    <div class="event-timeline">
+                        <div class="timeline-item">
+                            <span>Đón Khách</span>
+                            <span>11:00 SA</span>
+                        </div>
+                        <div class="timeline-item">
+                            <span>Khai Tiệc</span>
+                            <span>11:30 SA</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Venue Details -->
+                <section class="location stagger-item">
+                    <div class="loc-name">GEM Center</div>
+                    <div class="loc-address">
+                        Sảnh Grand Ballroom — Tầng 5<br>
+                        Số 8 Nguyễn Bỉnh Khiêm, Phường Đa Kao, Quận 1, TP. Hồ Chí Minh
+                    </div>
+                    <a rel="noopener noreferrer" class="map-btn" href="https://maps.app.goo.gl/sqeBopPFHiP6AbL57" target="_blank">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Xem Bản Đồ
+                    </a>
+                </section>
+
+                <!-- Footer / Contact -->
+                <footer class="footer stagger-item">
+                    <p>Sự hiện diện của quý khách là niềm vinh hạnh lớn cho gia đình của chúng tôi!</p>
+                    <div class="rsvp">R.S.V.P: 0901 234 567 (Minh) - 0908 765 432</div>
+                </footer>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sealBtn = document.getElementById('sealBtn');
+            const gate = document.getElementById('gate');
+            const scene1 = document.getElementById('scene1');
+            const scene2 = document.getElementById('scene2');
+
+            const audioToggle = document.getElementById('audioToggle');
+            const bgMusic = document.getElementById('bgMusic');
+            let isPlaying = false;
+            let hasOpened = false;
+
+            // Gate Opening Logic
+            sealBtn.addEventListener('click', () => {
+                if (hasOpened) return;
+                hasOpened = true;
+
+                sealBtn.style.opacity = '0';
+                sealBtn.style.pointerEvents = 'none';
+
+                // Slide open doors
+                gate.classList.add('is-open');
+
+                // Play audio on user interaction
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    updateAudioIcon(true);
+                }).catch(() => {
+                    isPlaying = false;
+                });
+
+                // Transition scenes
+                setTimeout(() => {
+                    scene1.classList.add('hidden');
+                    scene2.style.display = 'block';
+
+                    setTimeout(() => {
+                        scene2.classList.add('is-visible');
+                        triggerStaggerAnimations();
+                        initParticles();
+                    }, 50);
+                }, 1100);
+            });
+
+            // Sequential Content Display
+            function triggerStaggerAnimations() {
+                const items = document.querySelectorAll('.stagger-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('show');
+                    }, 200 + (index * 140));
+                });
+            }
+
+            // Audio Toggle Handlers
+            audioToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isPlaying) {
+                    bgMusic.pause();
+                    isPlaying = false;
+                    updateAudioIcon(false);
+                } else {
+                    bgMusic.play();
+                    isPlaying = true;
+                    updateAudioIcon(true);
+                }
+            });
+
+            function updateAudioIcon(playing) {
+                if (playing) {
+                    audioToggle.style.background = 'var(--red-primary)';
+                    audioToggle.style.color = '#fff';
+                    audioToggle.style.borderColor = 'var(--red-primary)';
+                } else {
+                    audioToggle.style.background = 'rgba(255, 253, 249, 0.75)';
+                    audioToggle.style.color = 'var(--red-primary)';
+                    audioToggle.style.borderColor = 'rgba(197, 160, 89, 0.4)';
+                }
+            }
+
+            // Gentle Petal Canvas Animation
+            function initParticles() {
+                const canvas = document.getElementById('particleCanvas');
+                const ctx = canvas.getContext('2d');
+
+                function resize() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                resize();
+                window.addEventListener('resize', resize);
+
+                const particles = Array.from({ length: 18 }, () => ({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 4 + 2,
+                    speedY: Math.random() * 0.8 + 0.3,
+                    speedX: Math.random() * 0.4 - 0.2,
+                    opacity: Math.random() * 0.5 + 0.2
+                }));
+
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                    particles.forEach(p => {
+                        p.y += p.speedY;
+                        p.x += p.speedX;
+
+                        if (p.y > canvas.height) {
+                            p.y = -10;
+                            p.x = Math.random() * canvas.width;
+                        }
+
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(197, 160, 89, ${p.opacity})`;
+                        ctx.fill();
+                    });
+
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+        });
+    </script>
+    
+</body>
+</html>
