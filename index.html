@@ -31,6 +31,9 @@
 
             /* Smooth Ease */
             --smooth-ease: cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Handles dynamic mobile browser toolbars */
+            --vh: 1vh;
         }
 
         * {
@@ -50,6 +53,9 @@
             overflow-x: hidden;
             background-image: radial-gradient(rgba(197, 160, 89, 0.15) 1px, transparent 1px);
             background-size: 32px 32px;
+
+            min-height: -webkit-fill-available;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         /* Floating Canvas for Petals */
@@ -64,16 +70,20 @@
         /* Glassmorphism Audio Control */
         .audio-btn {
             position: fixed;
-            top: 24px;
-            right: 24px;
+            /* top: 24px; */
+            top: calc(16px + env(safe-area-inset-top));
+            /* right: 24px; */
+            right: calc(16px + env(safe-area-inset-right));
             z-index: 100;
             background: rgba(255, 253, 249, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(197, 160, 89, 0.4);
             color: var(--red-primary);
-            width: 46px;
-            height: 46px;
+            /* width: 46px; */
+            width: 42px;
+            /* height: 46px; */
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -127,9 +137,14 @@
 
         .gate-container {
             position: relative;
-            width: 90vw;
-            max-width: 440px;
-            height: 580px;
+            /* width: 90vw; */
+            /* max-width: 440px; */
+            /* height: 580px; */
+            width: 88vw;
+            max-width: 420px;
+            height: 72vh;
+            max-height: 560px;
+
             background: var(--red-deep);
             border-radius: 6px;
             box-shadow: 0 25px 60px rgba(74, 14, 13, 0.35);
@@ -459,12 +474,34 @@
         }
 
         @media (max-width: 576px) {
-            .card-inner { padding: 36px 18px; }
-            .families-grid { grid-template-columns: 1fr; gap: 20px;}
-            .couple-names h1 { font-size: 2.4rem; }
-            .event-date { font-size: 1.4rem; }
-            .event-timeline { gap: 24px; }
+            .card-container { padding: 12px 8px; }
+            /* .card-inner { padding: 36px 18px; } */
+            .card-inner { padding: 32px 16px; }
+            /* .families-grid { grid-template-columns: 1fr; gap: 20px;} */
+            .families-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .family-title { font-size: 0.8rem; letter-spacing: 1px; }
+            .family-names p { font-size: 0.8rem; line-height: 1.4; }
+            /* .couple-names h1 { font-size: 2.4rem; } */
+            .couple-names h1 { font-size: 2.1rem; word-break: keep-all;}
+            /* .event-date { font-size: 1.4rem; } */
+            .event-date { font-size: 1.25rem; }
+            /* .event-timeline { gap: 24px; } */
+            .event-timeline { gap: 20px; }
             .gate-container { height: 480px; }
+
+            .ampersand { font-size: 1.5rem; margin: 4px 0; }
+            .event-info { padding: 20px 12px; }
+            .timeline-item span:last-child {
+                font-size: 1.15rem;
+            }
+
+            /* Touch-friendly full-width map button */
+            .map-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 16px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
